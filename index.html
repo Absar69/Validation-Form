@@ -7,42 +7,42 @@
 
     <style>
         /* Some basic styling for forms */
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
         form {
             max-width: 300px;
-            margin: 0 auto;
-            border: 2px solid #ccc;
-            border-radius: 8px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
             padding: 20px;
-            background-color: #f9f9f9;
+            border-radius: 5px;
         }
         label, input {
             display: block;
             margin-bottom: 10px;
         }
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"],
-        input[type="tel"] {
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="tel"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+        button[type="submit"] {
             background-color: #4CAF50;
             color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        input[type="submit"]:hover {
+        button[type="submit"]:hover {
             background-color: #45a049;
         }
         .error {
             color: red;
+            margin-top: 5px;
         }
     </style>
 
@@ -84,7 +84,82 @@
 
 </form>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to validate SignIn form
+        $("#signInForm").submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+            var username = $("#signInUsername").val();
+            var password = $("#signInPassword").val();
+            if (username === "") {
+                alert("Please enter your username.");
+                return false;
+            }
+            if (password === "") {
+                alert("Please enter your password.");
+                return false;
+            }
+            alert("SignIn successful!"); // Just an example, you can replace this with actual submission logic
+        });
 
+        // Function to validate SignUp form
+        $("#signUpForm").submit(function(event) {
+            event.preventDefault(); // Prevent form submission
+            var username = $("#signUpUsername").val();
+            var email = $("#signUpEmail").val();
+            var password = $("#signUpPassword").val();
+            var confirmPassword = $("#signUpConfirmPassword").val();
+            var age = $("#signUpAge").val();
+            var phone = $("#signUpPhone").val();
+            var address = $("#signUpAddress").val();
+            var zip = $("#signUpZip").val();
+            
+            // Basic validation
+            if (username === "" || email === "" || password === "" || confirmPassword === "" || age === "" || phone === "" || address === "" || zip === "") {
+                alert("All fields are required.");
+                return false;
+            }
+
+            // Validate password with special and numeric characters
+            var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert("Password must contain at least 8 characters including one special character and one numeric character.");
+                return false;
+            }
+
+            // Validate email format
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Validate age
+            if (isNaN(age) || age < 18) {
+                alert("Please enter a valid age greater than or equal to 18.");
+                return false;
+            }
+
+            // Validate phone number format
+            var phoneRegex = /^[0-9]{10}$/; // Matches a 10-digit phone number
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid phone number.");
+                return false;
+            }
+
+            // Validate zip code format
+            var zipRegex = /^[0-9]{5}$/; // Matches a 5-digit zip code
+            if (!zipRegex.test(zip)) {
+                alert("Please enter a valid 5-digit zip code.");
+                return false;
+            }
+
+            // If everything is fine, you can proceed with the SignUp
+            alert("SignUp successful!"); // Just an example, you can replace this with actual submission logic
+        });
+    });
+</script>
 
 
 
